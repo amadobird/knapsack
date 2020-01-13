@@ -91,6 +91,25 @@ export function deletePattern({
   };
 }
 
+const DELETE_TEMPLATE = 'knapsack/patterns/DELETE_TEMPLATE';
+interface DeleteTemplateAction extends Action {
+  type: typeof DELETE_TEMPLATE;
+  payload: {
+    patternId: string;
+    templateId: string;
+  };
+}
+
+/** Delete a pattern's template */
+export function deleteTemplate(
+  payload: DeleteTemplateAction['payload'],
+): DeleteTemplateAction {
+  return {
+    type: DELETE_TEMPLATE,
+    payload,
+  };
+}
+
 const UPDATE_SPEC = 'knapsack/patterns/Update Spec';
 interface UpdateSpecAction extends Action {
   type: typeof UPDATE_SPEC;
@@ -447,6 +466,7 @@ type Actions =
   | RemoveTemplateDemoAction
   | AddTemplateTemplateDemoAction
   | DuplicateDemoAction
+  | DeleteTemplateAction
   | UpdateSpecAction;
 
 export default function reducer(
@@ -653,6 +673,17 @@ export default function reducer(
         }
         template.spec = spec;
       });
+
+    case DELETE_TEMPLATE:
+      return produce(state, draft => {
+        const { patternId, templateId } = action.payload;
+        const pattern = draft.patterns[patternId];
+        if (!pattern) {
+          throw new Error(`Could not find patternId "${patternId}"`);
+        }
+        pattern.templates = pattern.templates.filter(t => t.id !== templateId);
+      });
+
     default:
       return {
         ...initialState,

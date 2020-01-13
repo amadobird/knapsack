@@ -45,6 +45,9 @@ export const EditTemplateDemo: React.FC<Props> = ({
 
   if (!currentTemplateRenderer) return null;
 
+  /** Are we creating a template or editing one? */
+  const isNewTemplate = !initialData?.path;
+
   const {
     title,
     aliasUse,
@@ -107,7 +110,7 @@ export const EditTemplateDemo: React.FC<Props> = ({
         <h5 className="ks-edit-template-demo__title">
           {title} Template
           <KsSvg svg={iconSvg} className="ks-edit-template-demo__logo" />
-          {handleDelete && (
+          {!isNewTemplate && handleDelete && (
             <KsPopover
               trigger="click"
               content={
@@ -204,7 +207,7 @@ export const EditTemplateDemo: React.FC<Props> = ({
             }}
           >
             <KsButton size={btnSize} type="submit" kind="primary">
-              {initialData?.path ? 'Update' : 'Add'}
+              {isNewTemplate ? 'Add' : 'Update'}
             </KsButton>
           </SchemaForm>
         </div>

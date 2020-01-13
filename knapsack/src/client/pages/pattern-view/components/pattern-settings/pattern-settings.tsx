@@ -20,6 +20,7 @@ import {
 import { KsButton, KsButtonGroup } from '@knapsack/design-system';
 import produce from 'immer';
 import shortid from 'shortid';
+import { useHistory } from 'react-router-dom';
 import arrayMove from 'array-move';
 import { validateSpec } from '../../../../../lib/utils';
 import {
@@ -27,7 +28,8 @@ import {
   updateSpec,
   useSelector,
   updateTemplateInfo,
-  deletePattern,
+  deleteTemplate,
+  setCurrentTemplateRenderer,
 } from '../../../../store';
 import { KsTemplateSpec, KsSlotInfo } from '../../../../../schemas/patterns';
 import { SpecItemTypes, SlotData } from './shared';
@@ -36,6 +38,7 @@ import { KsSlotEditor } from './slot-editor';
 import { KsSpecItem } from './spec-item';
 import { EditTemplateDemo } from '../edit-template-demo';
 import './pattern-settings.scss';
+import { BASE_PATHS } from '../../../../../lib/constants';
 
 const removeSpaces = (string: string): string => string.replace(/ /g, '');
 
@@ -73,6 +76,7 @@ export const KsPatternSettings: React.FC<Props> = ({
   activeTemplateId,
 }: Props) => {
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const { templates } = pattern;
   const hasTemplate = templates?.length > 0;
@@ -235,10 +239,23 @@ export const KsPatternSettings: React.FC<Props> = ({
           }}
           handleDelete={() => {
             dispatch(
-              deletePattern({
+              deleteTemplate({
                 patternId: pattern.id,
+                templateId: template.id,
               }),
             );
+            setTimeout(() => {
+              // go to this pattern page again
+              history.push(`${BASE_PATHS.PATTERN}/${pattern.id}`);
+              setTimeout(() => {
+                // set renderer to this one so we can recreate it again if we'd like
+                dispatch(
+                  setCurrentTemplateRenderer({
+                    id: template.templateLanguageId,
+                  }),
+                );
+              }, 50);
+            }, 50);
           }}
         />
       </div>
