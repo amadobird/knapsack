@@ -241,6 +241,9 @@ function createWebPackConfig({
     node: {
       fs: 'empty',
     },
+    // watchOptions: {
+    //   ignored: [/node_modules/, '!**@knapsack/**'],
+    // },
   };
 
   if (isProd) {

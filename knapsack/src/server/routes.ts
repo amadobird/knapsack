@@ -1,5 +1,5 @@
 import express from 'express';
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { apiUrlBase } from '../lib/constants';
 import { createDemoUrl } from './server-utils';
 
@@ -41,6 +41,11 @@ export function setupRoutes({
       maxAge: '1d',
     }),
   );
+
+  const designSystemDistDir = dirname(
+    require.resolve('@knapsack/design-system/dist'),
+  );
+  router.use('/ks-design-system', express.static(designSystemDistDir));
 
   if (distDir) {
     router.use(

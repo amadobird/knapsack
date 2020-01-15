@@ -1,12 +1,11 @@
 import './design-tokens/variables.css';
-import './styles/global.scss';
+import './styles';
 
 export * from './atoms';
 export * from './breakpoints-demo/breakpoints-demo';
 export * from './code-block/code-block';
 export * from './copy-to-clipboard/copy-to-clipboard';
 export * from './design-token-demos';
-// export * from './global/global';
 export * from './popover/popover';
 export * from './schema-form/schema-form';
 export * from './schema-table/schema-table';

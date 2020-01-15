@@ -22,7 +22,6 @@ import {
   Redirect,
 } from 'react-router-dom';
 import { plugins } from '@knapsack/core';
-import '@knapsack/design-system/dist/ks-design-system.css';
 import Amplify from 'aws-amplify';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
