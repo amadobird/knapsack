@@ -38,18 +38,11 @@ const config = createWebPackConfig({
       {
         from: require.resolve('react/umd/react.production.min.js'),
       },
-      {
-        from: require.resolve('react-dom/umd/react-dom.development.js'),
-      },
-      {
-        from: require.resolve('react-dom/umd/react-dom.production.min.js'),
-      },
     ]),
     new HtmlWebpackTagsPlugin({
       tags: [
         'ks-design-system/ks-design-system.css',
         isProd ? 'react.production.min.js' : 'react.development.js',
-        isProd ? 'react-dom.production.min.js' : 'react-dom.development.js',
       ],
       append: false,
     }),
