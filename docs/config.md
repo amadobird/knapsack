@@ -1,11 +1,10 @@
 ---
-id: config
 title: Config
+id: config
 ---
-
 ### `knapsack.config.js`
 
-This is the main config file for Knapsack, and it's doing the heavy lifting of converting new data for patterns and design-tokens into visual information on your design system dashboard.
+This is the main config file for Knapsack; and it's doing the heavy lifting of converting new data for patterns and design-tokens into visual information on your design system dashboard.
 
 ```js
 const HtmlRenderer = require('@knapsack/renderer-html');
